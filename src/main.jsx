@@ -1,97 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
-
-function setErrorFor(ErrRef, errmessage, inputBoxRef) {
-    ErrRef.current.innerText = errmessage;
-    ErrRef.current.className = "errmessage-active";
-    inputBoxRef.current.className = "textinput textinput-error";
-}
-
-function setSuccessFor(ErrRef, inputBoxRef) {
-    ErrRef.current.innerText = "";
-    ErrRef.current.className = "errmessage-inactive";
-    inputBoxRef.current.className = "textinput textinput-success";
-}
-
-function removeErrorFor(ErrRef, inputBoxRef) {
-    ErrRef.current.innerText = "";
-    ErrRef.current.className = "errmessage-inactive";
-    inputBoxRef.current.className = "textinput";  
-}
-
-function nameLiveValidation(uname, unameErr, unameBox, successflags) {
-    if(uname.length > 0) {
-        const strlen = uname.length;
-        
-        if(strlen < 3 || strlen > 25) {
-            setErrorFor(unameErr, "Name must be between 3 to 25 characters!", unameBox);
-            successflags.current.fl_uname = false;
-        } else {
-            setSuccessFor(unameErr, unameBox);
-        
-            if(/^[a-zA-Z]+$/g.test(uname) === false) {
-                setErrorFor(unameErr, "Only alphabets allowed", unameBox);
-                successflags.current.fl_uname = false;
-            } else {
-                setSuccessFor(unameErr, unameBox);
-                successflags.current.fl_uname = true;
-            }
-        }
-        
-    } else {
-        removeErrorFor(unameErr, unameBox);
-        successflags.current.fl_uname = false;
-    }
-}
-
-function emailLiveValidation(email, emailErr, emailBox, successflags) {
-    if(email.length > 0) {
-        const result = /^(?<username>[a-zA-Z]\w*(\.\w+)?)@(?<domain>\w+)\.((com|net|edu|org|gov)|co\.(in|ca|au|uk|us))$/g.test(email);
-        
-        if(result === true) {
-            setSuccessFor(emailErr, emailBox);
-            successflags.current.fl_email = true;
-        } else {
-            setErrorFor(emailErr, "Invalid Email Format", emailBox);
-            successflags.current.fl_email = false;
-        }
-    } else {
-        removeErrorFor(emailErr, emailBox);
-        successflags.current.fl_email = false;
-    }
-}
-
-function passwordLiveValidation(password, passwordErr, passwordBox, successflags) {
-    if(password.length > 0) {
-        const result = /^((?=.*[a-z]))(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?<actual_matcher>[A-Za-z\d!?@#$%^&*_+=-]{8,})$/g.test(password);
-        
-        //here if I wanted to update the error message as only showing the missing criteria, I would have to use seperate checks with individual lookaheads of the above regex
-        if(result === true) {
-            setSuccessFor(passwordErr, passwordBox);
-            successflags.current.fl_password = true;
-        } else {
-            setErrorFor(passwordErr, "Min. Password length: 8 characters\nMust contain:\n1 uppercase character,\n1 number and \n1 special character", passwordBox);
-            successflags.current.fl_password = false;
-        }
-    } else {
-        removeErrorFor(passwordErr, passwordBox);
-        successflags.current.fl_password = false;
-    }
-}
-
-function repasswordLiveValidation(repassword, password, repasswordErr, repasswordBox, successflags) {
-    if(repassword.length > 0) {
-        if(repassword === password) {
-            setSuccessFor(repasswordErr, repasswordBox);
-            successflags.current.fl_repassword = true;
-        } else {
-            setErrorFor(repasswordErr, "Password Mismatch...", repasswordBox);
-            successflags.current.fl_repassword = false;
-        }
-    } else {
-        removeErrorFor(repasswordErr, repasswordBox);
-        successflags.current.fl_repassword = false;
-    }
-}
+import { emailLiveValidation } from './components/emailLiveValidation.jsx';
+import { nameLiveValidation } from './components/nameLiveValidation.jsx';
+import { passwordLiveValidation } from './components/passwordLiveValidation';
+import { repasswordLiveValidation } from './components/repasswordLiveValidation';
 
 function flagCheck(successflags, buttonRef) {
     if(successflags.current.fl_uname === true && successflags.current.fl_email === true && successflags.current.fl_password === true && successflags.current.fl_repassword === true) {
@@ -103,8 +14,8 @@ function flagCheck(successflags, buttonRef) {
     }
 }
 
-function showValues(uname, email, password) {
-    console.log(`Username: ${uname}\nEmail: ${email}\nPassword: ${password}`);
+function showValues(uname, email) {
+    console.log(`Username: ${uname}\nEmail: ${email}`);
 }
 
 function SignUpPage() {
@@ -180,10 +91,10 @@ function SignUpPage() {
                 <div ref={ repasswordErr } className='errmessage-inactive' id='repassworderror'></div>
 
                 <div className='buttoninput' style={{alignItems: "center"}}>
-                    <input ref={ submitbutton } type="button" value="Submit" className='submit-button btn-disabled' onClick={() => {showValues(uname, email, password)}}/> 
+                    <input ref={ submitbutton } type="button" value="Submit" className='submit-button btn-disabled' onClick={() => {showValues(uname, email)}}/> 
                 </div>
             </div>
-            {/* onClick={ showFields(unameBox, emailBox, passwordBox, repasswordBox) } */}
+
             <div className="bgsquares">    
                 <div className="tpsquare" style={{"--i": "1"}}></div>
                 <div className="tpsquare" style={{"--i": "2"}}></div>
