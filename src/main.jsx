@@ -15,7 +15,7 @@ function flagCheck(successflags, buttonRef) {
 }
 
 function showValues(uname, email) {
-    console.log(`Username: ${uname}\nEmail: ${email}`);
+    alert(`Username: ${uname}\nEmail: ${email}`);
 }
 
 function SignUpPage() {
