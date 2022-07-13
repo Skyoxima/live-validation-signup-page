@@ -18,65 +18,98 @@ function removeErrorFor(ErrRef, inputBoxRef) {
     inputBoxRef.current.className = "textinput";  
 }
 
-function nameLiveValidation(uname, unameErr, unameBox) {
-    if((uname.length < 3 && uname.length > 0) || (uname.length > 25)) {
-        setErrorFor(unameErr, "Name must be between 3 to 25 characters!", unameBox);
-    }  else if(uname.length >= 3 && uname.length <= 25) {
-        setSuccessFor(unameErr, unameBox);
+function nameLiveValidation(uname, unameErr, unameBox, successflags) {
+    if(uname.length > 0) {
+        const strlen = uname.length;
         
-        if(uname.length > 0 && /^[A-Z]+$/i.test(uname) === false) {
-            setErrorFor(unameErr, "Numbers, special characters and space not allowed!", unameBox);
+        if(strlen < 3 || strlen > 25) {
+            setErrorFor(unameErr, "Name must be between 3 to 25 characters!", unameBox);
+            successflags.current.fl_uname = false;
         } else {
             setSuccessFor(unameErr, unameBox);
+        
+            if(/^[a-zA-Z]+$/g.test(uname) === false) {
+                setErrorFor(unameErr, "Only alphabets allowed", unameBox);
+                successflags.current.fl_uname = false;
+            } else {
+                setSuccessFor(unameErr, unameBox);
+                successflags.current.fl_uname = true;
+            }
         }
-    }
-    else if(uname.length === 0) {
+        
+    } else {
         removeErrorFor(unameErr, unameBox);
-    }   
+        successflags.current.fl_uname = false;
+    }
 }
 
-function emailLiveValidation(email, emailErr, emailBox) {
+function emailLiveValidation(email, emailErr, emailBox, successflags) {
     if(email.length > 0) {
         const result = /^(?<username>[a-zA-Z]\w*(\.\w+)?)@(?<domain>\w+)\.((com|net|edu|org|gov)|co\.(in|ca|au|uk|us))$/g.test(email);
         
         if(result === true) {
             setSuccessFor(emailErr, emailBox);
+            successflags.current.fl_email = true;
         } else {
             setErrorFor(emailErr, "Invalid Email Format", emailBox);
+            successflags.current.fl_email = false;
         }
     } else {
         removeErrorFor(emailErr, emailBox);
+        successflags.current.fl_email = false;
     }
 }
 
-function passwordLiveValidation(password, passwordErr, passwordBox) {
+function passwordLiveValidation(password, passwordErr, passwordBox, successflags) {
     if(password.length > 0) {
-        const result = /^((?=.*[a-z]))(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?<actual_matcher>[A-Za-z\d!?@#$%^&*_+=-]{6,})$/g.test(password);
-
+        const result = /^((?=.*[a-z]))(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])(?<actual_matcher>[A-Za-z\d!?@#$%^&*_+=-]{8,})$/g.test(password);
+        
+        //here if I wanted to update the error message as only showing the missing criteria, I would have to use seperate checks with individual lookaheads of the above regex
         if(result === true) {
             setSuccessFor(passwordErr, passwordBox);
+            successflags.current.fl_password = true;
         } else {
-            setErrorFor(passwordErr, "Password must be atleast 8 characters and have atleast 1 uppercase letter, 1 number and 1 special character!", passwordBox);
+            setErrorFor(passwordErr, "Min. Password length: 8 characters\nMust contain:\n1 uppercase character,\n1 number and \n1 special character", passwordBox);
+            successflags.current.fl_password = false;
         }
     } else {
         removeErrorFor(passwordErr, passwordBox);
+        successflags.current.fl_password = false;
     }
 }
 
-function repasswordLiveValidation(repassword, password, repasswordErr, repasswordBox) {
+function repasswordLiveValidation(repassword, password, repasswordErr, repasswordBox, successflags) {
     if(repassword.length > 0) {
         if(repassword === password) {
             setSuccessFor(repasswordErr, repasswordBox);
+            successflags.current.fl_repassword = true;
         } else {
             setErrorFor(repasswordErr, "Password Mismatch...", repasswordBox);
+            successflags.current.fl_repassword = false;
         }
     } else {
         removeErrorFor(repasswordErr, repasswordBox);
+        successflags.current.fl_repassword = false;
     }
+}
+
+function flagCheck(successflags, buttonRef) {
+    if(successflags.current.fl_uname === true && successflags.current.fl_email === true && successflags.current.fl_password === true && successflags.current.fl_repassword === true) {
+        buttonRef.current.disabled = false;
+        buttonRef.current.className = "submit-button btn-enabled";
+    } else {
+        buttonRef.current.disabled = true;
+        buttonRef.current.className = "submit-button btn-disabled";
+    }
+}
+
+function showValues(uname, email, password) {
+    console.log(`Username: ${uname}\nEmail: ${email}\nPassword: ${password}`);
 }
 
 function SignUpPage() {
     console.log("Component Rendered");
+    
     const [uname, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -90,23 +123,30 @@ function SignUpPage() {
     const passwordErr = useRef();
     const repasswordBox = useRef();
     const repasswordErr = useRef();
+    
+    const submitbutton = useRef();
+    const successflags = useRef({fl_uname: false, fl_email: false, fl_password: false, fl_repassword: false});
 
     // called after every re-render caused by the changing of variable passed in the array (and every re-render if no variables are passed)
     useEffect(() => {
-        nameLiveValidation(uname, unameErr, unameBox);
+        nameLiveValidation(uname, unameErr, unameBox, successflags);
+        flagCheck(successflags, submitbutton);
     }, [uname]);
-
+    
     useEffect(() => {
-        emailLiveValidation(email, emailErr, emailBox);
+        emailLiveValidation(email, emailErr, emailBox, successflags);
+        flagCheck(successflags, submitbutton);
     }, [email]);
-
+    
     useEffect(() => {
-        passwordLiveValidation(password, passwordErr, passwordBox);
+        passwordLiveValidation(password, passwordErr, passwordBox, successflags);
+        flagCheck(successflags, submitbutton);
     }, [password]);
-
+    
     useEffect(() => {
-        repasswordLiveValidation(repassword, password, repasswordErr, repasswordBox);
-    }, [repassword]);
+        repasswordLiveValidation(repassword, password, repasswordErr, repasswordBox, successflags);
+        flagCheck(successflags, submitbutton);
+    }, [password, repassword]);
 
     return (
         <section>
@@ -135,15 +175,15 @@ function SignUpPage() {
                 
                 <div>
                     <label htmlFor="repasswordbox">Re-enter Password</label>
-                    <input type="password" name="repasswordbox" id="repasswordbox" value={ repassword } className="textinput" onChange={(event) => setRePassword(event.target.value)} />
+                    <input ref={ repasswordBox } type="password" name="repasswordbox" id="repasswordbox" value={ repassword } className="textinput" onChange={(event) => setRePassword(event.target.value)} />
                 </div>
+                <div ref={ repasswordErr } className='errmessage-inactive' id='repassworderror'></div>
 
                 <div className='buttoninput' style={{alignItems: "center"}}>
-                {/* Add a grayed-out submit button, only activating when everything is valid */}
-                <input type="button" value="Submit" className='disabled-button'/> 
+                    <input ref={ submitbutton } type="button" value="Submit" className='submit-button btn-disabled' onClick={() => {showValues(uname, email, password)}}/> 
                 </div>
             </div>
-            {/* by default it should be deactivated, activating only when all fields are set as success (thinking of array based implementation) */}
+            {/* onClick={ showFields(unameBox, emailBox, passwordBox, repasswordBox) } */}
             <div className="bgsquares">    
                 <div className="tpsquare" style={{"--i": "1"}}></div>
                 <div className="tpsquare" style={{"--i": "2"}}></div>

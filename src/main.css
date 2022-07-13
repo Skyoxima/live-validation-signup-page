@@ -61,8 +61,41 @@ input[type=text]::placeholder, input[type=password]::placeholder {
 /* ============================================================================================================================================================== */
 /*! seperate the disabled button and active button CSS */
 
+#main-box .submit-button {
+    width: 110px; height: 50px;
+    border-radius: 20px;
+    border: none;
+}
 
+#main-box .btn-disabled {
+    background-color: rgba(0, 0, 0, 0.50);
+    color: white;
+    border-top: 2px solid grey;
+    box-shadow: -3px 3px 3px 0.3px grey;
+    transition: .4s;
+}
 
+#main-box .btn-disabled:hover {
+    border-top: 2px solid rgb(180, 40, 40);
+    box-shadow: -3px 3px 3px 0.3px rgb(180, 40, 40);
+}
+
+#main-box .btn-enabled {
+    background-color: rgba(240, 240, 240, 1);
+    color: black;
+    border-top: 2px solid tan;
+    box-shadow: -3px 3px 3px 0.3px tan;
+    transition: .4s;
+}
+
+#main-box .btn-enabled:hover {
+    border-top: 2px solid rgb(0, 129, 17);
+    box-shadow: -3px 3px 3px 0.3px rgb(0, 129, 17);
+}
+
+#main-box .btn-enabled:active {
+    transform: scale(85%);
+}
 /* ============================================================================================================================= */
 #main-box .errmessage-inactive {
     margin-top: -20px;
