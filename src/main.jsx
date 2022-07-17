@@ -60,7 +60,7 @@ function SignUpPage() {
     }, [password, repassword]);
 
     return (
-        <section>
+        <>
             <div id="main-box">
                 <div id="heading" style={{alignItems: "center"}}>
                     <h2>Sign-Up</h2>
@@ -93,15 +93,14 @@ function SignUpPage() {
                 <div className='buttoninput' style={{alignItems: "center"}}>
                     <input ref={ submitbutton } type="button" value="Submit" className='submit-button btn-disabled' onClick={() => {showValues(uname, email)}}/> 
                 </div>
+                <div className="bgsquares">    
+                    <div className="tpsquare" style={{"--i": "1"}}></div>
+                    <div className="tpsquare" style={{"--i": "2"}}></div>
+                    <div className="tpsquare" style={{"--i": "3"}}></div>
+                    <div className="tpsquare" style={{"--i": "4"}}></div>
+                </div>
             </div>
-
-            <div className="bgsquares">    
-                <div className="tpsquare" style={{"--i": "1"}}></div>
-                <div className="tpsquare" style={{"--i": "2"}}></div>
-                <div className="tpsquare" style={{"--i": "3"}}></div>
-                <div className="tpsquare" style={{"--i": "4"}}></div>
-            </div>
-        </section>
+        </>
     );
 }
 
