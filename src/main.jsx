@@ -35,6 +35,9 @@ function SignUpPage() {
     const repasswordBox = useRef();
     const repasswordErr = useRef();
     
+    const formDiv = useRef();
+    const mainDiv = useRef();
+    
     const submitbutton = useRef();
     const successflags = useRef({fl_uname: false, fl_email: false, fl_password: false, fl_repassword: false});
 
@@ -59,45 +62,51 @@ function SignUpPage() {
         flagCheck(successflags, submitbutton);
     }, [password, repassword]);
 
+    useEffect(() => {
+        // This format is used to get style which is in the external css, .style only gets inline style
+        mainDiv.current.style.height = window.getComputedStyle(formDiv.current).getPropertyValue('height');
+    }, [uname, email, password, repassword])
+
     return (
         <>
-            <div id="main-box">
-                <div id="heading" style={{alignItems: "center"}}>
-                    <h2>Sign-Up</h2>
-                </div>
-
-                <div>
-                    <label htmlFor="namebox">Name</label>
-                    <input ref={ unameBox } type="text" name="namebox" id="namebox" className="textinput"  placeholder="Username" value={ uname } onChange={(event) => setName(event.target.value)}/>
-                </div>
-                <div ref={ unameErr } className='errmessage-inactive' id='nameerror'></div>
-
-                <div>
-                    <label htmlFor="emailbox">Email</label>
-                    <input ref={ emailBox } type="text" name="emailbox" id="emailbox" className="textinput" placeholder="Email" value={ email } onChange={(event) => setEmail(event.target.value)}/>
-                </div>
-                <div ref={ emailErr } className='errmessage-inactive' id='emailerror'></div>
+            <div id='main-div' ref={ mainDiv }>
+                <div className="tpsquare" style={{"--i": "1"}}></div>
+                <div className="tpsquare" style={{"--i": "2"}}></div>
+                <div className="tpsquare" style={{"--i": "3"}}></div>
+                <div className="tpsquare" style={{"--i": "4"}}></div>
                 
-                <div>
-                    <label htmlFor="passwordbox">Password</label>
-                    <input ref={ passwordBox } type="password" name="passwordbox" id="passwordbox" className="textinput" placeholder="Password" value={ password } onChange = {(event) => setPassword(event.target.value)}/>
-                </div>
-                <div ref={ passwordErr } className='errmessage-inactive' id='passworderror'></div>
-                
-                <div>
-                    <label htmlFor="repasswordbox">Re-enter Password</label>
-                    <input ref={ repasswordBox } type="password" name="repasswordbox" id="repasswordbox" value={ repassword } className="textinput" onChange={(event) => setRePassword(event.target.value)} />
-                </div>
-                <div ref={ repasswordErr } className='errmessage-inactive' id='repassworderror'></div>
+                <div id="form-box" ref={ formDiv }>
+                    <div id="heading" style={{alignItems: "center"}}>
+                        <h2>Sign-Up</h2>
+                    </div>
 
-                <div className='buttoninput' style={{alignItems: "center"}}>
-                    <input ref={ submitbutton } type="button" value="Submit" className='submit-button btn-disabled' onClick={() => {showValues(uname, email)}}/> 
-                </div>
-                <div className="bgsquares">    
-                    <div className="tpsquare" style={{"--i": "1"}}></div>
-                    <div className="tpsquare" style={{"--i": "2"}}></div>
-                    <div className="tpsquare" style={{"--i": "3"}}></div>
-                    <div className="tpsquare" style={{"--i": "4"}}></div>
+                    <div>
+                        <label htmlFor="namebox">Name</label>
+                        <input ref={ unameBox } type="text" name="namebox" id="namebox" className="textinput"  placeholder="Username" value={ uname } onChange={(event) => setName(event.target.value)}/>
+                    </div>
+                    <div ref={ unameErr } className='errmessage-inactive' id='nameerror'></div>
+
+                    <div>
+                        <label htmlFor="emailbox">Email</label>
+                        <input ref={ emailBox } type="text" name="emailbox" id="emailbox" className="textinput" placeholder="Email" value={ email } onChange={(event) => setEmail(event.target.value)}/>
+                    </div>
+                    <div ref={ emailErr } className='errmessage-inactive' id='emailerror'></div>
+                    
+                    <div>
+                        <label htmlFor="passwordbox">Password</label>
+                        <input ref={ passwordBox } type="password" name="passwordbox" id="passwordbox" className="textinput" placeholder="Password" value={ password } onChange = {(event) => setPassword(event.target.value)}/>
+                    </div>
+                    <div ref={ passwordErr } className='errmessage-inactive' id='passworderror'></div>
+                    
+                    <div>
+                        <label htmlFor="repasswordbox">Re-enter Password</label>
+                        <input ref={ repasswordBox } type="password" name="repasswordbox" id="repasswordbox" value={ repassword } className="textinput" onChange={(event) => setRePassword(event.target.value)} />
+                    </div>
+                    <div ref={ repasswordErr } className='errmessage-inactive' id='repassworderror'></div>
+
+                    <div className='buttoninput' style={{alignItems: "center"}}>
+                        <input ref={ submitbutton } type="button" value="Sign-up" className='submit-button btn-disabled' onClick={() => {showValues(uname, email)}}/> 
+                    </div>
                 </div>
             </div>
         </>

@@ -1,8 +1,11 @@
-body {
+* {
   margin: 0;
   padding: 0;
-  min-width: 100vw; min-height: 100vh;
   box-sizing: border-box;
+}
+
+body {
+  min-width: 100vw; min-height: 100vh;
 
   font-family: 'Segoe UI';
   background: radial-gradient(circle, rgb(37, 0, 52) 33%, rgb(119, 50, 0), rgb(37, 0, 52));
