@@ -75,7 +75,7 @@ input[type=text]::placeholder, input[type=password]::placeholder {
 }
 
 #form-box .textinput-error:focus {
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid gold;
 }
 
 #form-box .textinput-success:focus {
@@ -91,7 +91,7 @@ input[type=text]::placeholder, input[type=password]::placeholder {
     margin-top: -25px;
     font-size: 16px;
     font-weight: 500;
-    color: red;
+    color: goldenrod;
 }
 
 /* Button of Form Div =============================================================================================================================================================================================================== */
