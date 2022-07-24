@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/live-validation-signup-page/static/css/main.8d158676.css",
+    "main.css": "/live-validation-signup-page/static/css/main.8a92680d.css",
     "main.js": "/live-validation-signup-page/static/js/main.81e2fdb0.js",
     "index.html": "/live-validation-signup-page/index.html",
-    "main.8d158676.css.map": "/live-validation-signup-page/static/css/main.8d158676.css.map",
+    "main.8a92680d.css.map": "/live-validation-signup-page/static/css/main.8a92680d.css.map",
     "main.81e2fdb0.js.map": "/live-validation-signup-page/static/js/main.81e2fdb0.js.map"
   },
   "entrypoints": [
-    "static/css/main.8d158676.css",
+    "static/css/main.8a92680d.css",
     "static/js/main.81e2fdb0.js"
   ]
 }
