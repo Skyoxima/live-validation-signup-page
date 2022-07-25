@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
-import { emailLiveValidation } from './components/emailLiveValidation.jsx';
-import { nameLiveValidation } from './components/nameLiveValidation.jsx';
-import { passwordLiveValidation } from './components/passwordLiveValidation';
-import { repasswordLiveValidation } from './components/repasswordLiveValidation';
+import { emailLiveValidation } from './functions/emailLiveValidation.jsx';
+import { nameLiveValidation } from './functions/nameLiveValidation.jsx';
+import { passwordLiveValidation } from './functions/passwordLiveValidation';
+import { repasswordLiveValidation } from './functions/repasswordLiveValidation';
 
 function flagCheck(successflags, buttonRef) {
     if(successflags.current.fl_uname === true && successflags.current.fl_email === true && successflags.current.fl_password === true && successflags.current.fl_repassword === true) {
