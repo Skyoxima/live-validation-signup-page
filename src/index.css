@@ -8,6 +8,6 @@ body {
   min-width: 100vw; min-height: 100vh;
 
   font-family: 'Segoe UI';
-  background: radial-gradient(circle, rgb(37, 0, 52) 33%, rgb(119, 50, 0), rgb(37, 0, 52));
+  background: linear-gradient(to right, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
 }

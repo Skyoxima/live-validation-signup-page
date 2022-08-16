@@ -1,4 +1,4 @@
-import {setErrorFor, setSuccessFor, removeErrorFor} from './HelperFunctions.jsx'
+import {setErrorFor, setSuccessFor, removeErrorFor} from './HelperFunctions'
 
 export function repasswordLiveValidation(repassword, password, repasswordErr, repasswordBox, successflags) {
     if (repassword.length > 0) {

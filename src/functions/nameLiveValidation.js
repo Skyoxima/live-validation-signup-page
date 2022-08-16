@@ -1,4 +1,4 @@
-import {setErrorFor, setSuccessFor, removeErrorFor} from './HelperFunctions.jsx'
+import {setErrorFor, setSuccessFor, removeErrorFor} from './HelperFunctions'
 
 export function nameLiveValidation(uname, unameErr, unameBox, successflags) {
     if(uname.length > 0) {

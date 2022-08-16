@@ -1,8 +1,9 @@
 #main-div {
     position: absolute;
     top: 50%; left: 50%;
-    min-width: 450px; min-height: 650px;
+    min-width: 450px; min-height: 600px;
     /* important, read below */
+    
     transform: translate(-50%, -50%);
     border-radius: 15px;
     /* background-color: darkblue; */
@@ -11,7 +12,7 @@
 /*+ Interesting NOTE - If the parent isn't given any dimensions but it's origin is at the center by t-translate, child element will still be position correctly if it also shifts it's origin. */
 /*+ cont: Top and Left of child are then rendered meaningless. Ofcourse both parent and the child have to be 'positioned'  */
 
-/*? What seems to be happening is that if there is no dimensions of the absolutely positioned parent, the child element cannot displace itself using top-left but t-translate still shifts the origin of the child */
+/*? What seems to be happening is that if there is no dimensions of the absolutely positioned parent, the child element cannot displace itself using top-left but t-translate works because it depends on the child itself */
 /*? cont: from top-left to center (so parent's supposed center and child's center do align) and the it's the content of the child which makes it grow in size from it's origin which is the center. */
 /*! The child cannot be absolutely positioned elsewhere on the parent element since there is no place for it to do so */
 /*! The child element grows because ""overflow"" is by default allowed */
@@ -21,23 +22,24 @@
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    min-width: 450px; min-height: 650px;
+    min-width: 450px; min-height: 600px;
 
     padding: 20px;
     border-radius: 15px;
-    background-color: rgb(255, 255, 255, 0.1);
+    background-color: rgb(255, 255, 255, 0.075);
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-bottom: 1px solid rgb(255, 255, 255, 0.2);
     border-right: 1px solid rgb(255, 255, 255, 0.2);
     box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
     
+    backdrop-filter: blur(1.5px);
     font-size: 20px;
     transition: .25s;
 }
 
 #form-box:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.025);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.35);
 }
 
 /* Contents of Form Div =============================================================================================================================================================================================================== */
@@ -48,7 +50,7 @@
 }
 
 #form-box label {
-    margin-right: 10px;
+    margin-bottom: 5px;
 }
 
 input[type=text]::placeholder, input[type=password]::placeholder {
@@ -62,7 +64,7 @@ input[type=text]::placeholder, input[type=password]::placeholder {
     border: none;
     outline: none;   /* Only seen when the box is active */
     background-color: transparent;
-    border-bottom: 2px solid rgba(216, 112, 147, 1);
+    border-bottom: 2px solid hsl(267, 80%, 75%);
     
     font-size: 18px;
     color: white;
@@ -82,12 +84,25 @@ input[type=text]::placeholder, input[type=password]::placeholder {
     border-bottom: 2px solid chartreuse;
 }
 
-/* Content of Form Div - Error messages =============================================================================================================================================================================================================== */
+#form-box .textinput-radio-pair {
+    margin-bottom: 0;
+}
+
+#form-box .unhide {
+    margin-bottom: 0;
+    margin-left: 10px;
+    display: inline-block;
+    width: 30px; height: 30px;
+    background: white;
+}
+
+/* Content of Form Div-Error messages =============================================================================================================================================================================================================== */
 #form-box .errmessage-inactive {
-    margin-top: -30px;
+    display: none;
 }
 
 #form-box .errmessage-active {
+    display: block;
     margin-top: -25px;
     font-size: 16px;
     font-weight: 500;
@@ -96,9 +111,11 @@ input[type=text]::placeholder, input[type=password]::placeholder {
 
 /* Button of Form Div =============================================================================================================================================================================================================== */
 #form-box .submit-button {
+    position: relative;
     width: 160px; height: 55px;
     margin-top: 30px;
-    font-size: 1rem;
+    
+    font-size: 1.2rem;
     border-radius: 20px;
     border: none;
 }
@@ -106,32 +123,46 @@ input[type=text]::placeholder, input[type=password]::placeholder {
 #form-box .btn-disabled {
     background-color: rgba(0, 0, 0, 0.50);
     color: white;
-    border-top: 2px solid grey;
-    box-shadow: 3px 4px 3px 0.3px grey;
-    transition: .4s;
+    transition: .5s;
+}
+
+#form-box .btn-disabled::after {
+    content: 'Invalid inputs present';
+    white-space: pre;
+
+    display: block;
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%) translateY(0px);
+
+    color: #ff5f5f;
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: 0;
+
+    transition: transform 0.5s ease-out, opacity 0.2s ease-out;
 }
 
 #form-box .btn-disabled:hover {
-    border-top: 2px solid rgb(180, 40, 40);
-    box-shadow: 3px 4px 3px 0.3px rgb(180, 40, 40);
+    box-shadow: 0 0 5px 2px #ff5f5f;
+}
+
+#form-box .btn-disabled:hover::after {
+    transition: transform 0.5s ease-out, opacity 0.2s ease-out;
+    transition-delay: 0s, 0.2s;
+    opacity: 1;
+    transform: translateX(-50%) translateY(65px);
 }
 
 #form-box .btn-enabled {
-    background-color: rgba(240, 240, 240, 1);
+    background-color: rgba(240, 240, 240, 0.9);
     color: black;
-    border-top: 2px solid tan;
-    box-shadow: 3px 4px 3px 0.3px tan;
-    transition: .1s ease-out;
+    transition: box-shadow .5s ease-out;
 }
 
 #form-box .btn-enabled:hover {
-    border-top: 2px solid rgb(0, 129, 17);
-    box-shadow: 3px 4px 3px 0.3px rgb(0, 129, 17);
-}
-
-#form-box .btn-enabled:active {
-    border: 4px solid rgb(0, 169, 20);
-    box-shadow: 0 0 0 1px rgb(32, 32, 32);
+    transition: box-shadow .5s ease-out;
+    box-shadow: 0 0 5px 4px #3ded97;
 }
 
 /* The Floating Transparent(tp) Squares =============================================================================================================================================================================================================== */
@@ -139,12 +170,13 @@ input[type=text]::placeholder, input[type=password]::placeholder {
     position: absolute;
 
     border-radius: 10px;
-    background-color: rgba(217, 255, 0, .3);
-    box-shadow: 0px 0px 7.5px 7.5px rgba(0, 0, 0, 0.25);
+    background-color: rgb(255, 255, 255, 0.075);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgb(255, 255, 255, 0.2);
+    border-right: 1px solid rgb(255, 255, 255, 0.2);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
     
     backdrop-filter: blur(1.5px);
-    filter: blur(1px);
-
     animation: animate 7s linear infinite;
     animation-delay: calc(-2s * var(--i));
 }

@@ -1,4 +1,4 @@
-import { setSuccessFor, setErrorFor, removeErrorFor } from './HelperFunctions.jsx';
+import { setSuccessFor, setErrorFor, removeErrorFor } from './HelperFunctions';
 
 export function emailLiveValidation(email, emailErr, emailBox, successflags) {
     if (email.length > 0) {
