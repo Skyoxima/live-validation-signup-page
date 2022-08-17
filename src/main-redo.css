@@ -93,12 +93,10 @@ input::placeholder {
 
 .eyecon {
     position: absolute;
+    width: 30px; height: 30px;
     top: 50%; left: 90%;
-    transform: translateY(-50%);
-}
-
-.eyecon.slash {
-    display: none;
+    transform: translateY(-55%);
+    filter: invert();
 }
 
 /* Content of Form Div-Error messages =============================================================================================================================================================================================================== */
