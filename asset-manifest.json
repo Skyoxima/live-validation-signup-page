@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/live-validation-signup-page/static/css/main.9738bc2e.css",
-    "main.js": "/live-validation-signup-page/static/js/main.f4abfb28.js",
+    "main.css": "/live-validation-signup-page/static/css/main.7c54f068.css",
+    "main.js": "/live-validation-signup-page/static/js/main.e268e3da.js",
+    "static/media/hidden.png": "/live-validation-signup-page/static/media/hidden.96c265df819b0ed2fbe0.png",
+    "static/media/normal.png": "/live-validation-signup-page/static/media/normal.1e676ca1a1c1df786329.png",
     "index.html": "/live-validation-signup-page/index.html",
-    "main.9738bc2e.css.map": "/live-validation-signup-page/static/css/main.9738bc2e.css.map",
-    "main.f4abfb28.js.map": "/live-validation-signup-page/static/js/main.f4abfb28.js.map"
+    "main.7c54f068.css.map": "/live-validation-signup-page/static/css/main.7c54f068.css.map",
+    "main.e268e3da.js.map": "/live-validation-signup-page/static/js/main.e268e3da.js.map"
   },
   "entrypoints": [
-    "static/css/main.9738bc2e.css",
-    "static/js/main.f4abfb28.js"
+    "static/css/main.7c54f068.css",
+    "static/js/main.e268e3da.js"
   ]
 }
