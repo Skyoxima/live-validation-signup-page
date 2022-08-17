@@ -60,13 +60,13 @@ input::placeholder {
 #form-box .textinput {
     width: 100%;
     padding: 5px 10px;
-    border-radius: 20%;
+    border-radius: 5px;
     
     border: none;
     outline: none;   /* Only seen when the box is active */
     background-color: transparent;
-    border-bottom: 2px solid hsl(267, 80%, 75%);
-    
+    border-bottom: 1px solid hsl(267, 80%, 75%);
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.2);
     font-size: 18px;
     color: white;
     
@@ -74,15 +74,15 @@ input::placeholder {
 }
 
 #form-box .textinput:focus {
-    border-bottom: 2px solid lightseagreen;
+    border-bottom: 1px solid lightseagreen;
 }
 
 #form-box .textinput-error:focus {
-    border-bottom: 2px solid gold;
+    border-bottom: 1px solid gold;
 }
 
 #form-box .textinput-success:focus {
-    border-bottom: 2px solid chartreuse;
+    border-bottom: 1px solid chartreuse;
 }
 
 #form-box .text-radio-pair {
@@ -95,7 +95,7 @@ input::placeholder {
     position: absolute;
     width: 30px; height: 30px;
     top: 50%; left: 90%;
-    transform: translateY(-55%);
+    transform: translateY(-50%);
     filter: invert();
 }
 
@@ -106,6 +106,7 @@ input::placeholder {
 
 #form-box .errmessage-active {
     display: block;
+    opacity: 1;
     margin-top: -25px;
     font-size: 16px;
     font-weight: 500;
@@ -160,12 +161,17 @@ input::placeholder {
 #form-box .btn-enabled {
     background-color: rgba(240, 240, 240, 0.9);
     color: black;
-    transition: box-shadow .5s ease-out;
+    transition: box-shadow .5s ease-out, transform .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 #form-box .btn-enabled:hover {
     transition: box-shadow .5s ease-out;
     box-shadow: 0 0 5px 4px #3ded97;
+}
+
+#form-box .btn-enabled:active {
+    transition: transform .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transform: scale(90%);
 }
 
 /* The Floating Transparent(tp) Squares =============================================================================================================================================================================================================== */
